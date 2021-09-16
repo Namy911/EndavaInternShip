@@ -2,8 +2,11 @@ package com.example.splashscreent1
 
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowInsets
+import android.view.WindowManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -19,6 +22,16 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
+            this.window.insetsController?.hide(WindowInsets.Type.statusBars())
+        } else {
+            this.window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
     }
 
     override fun onStart() {
